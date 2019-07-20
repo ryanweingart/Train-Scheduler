@@ -1,12 +1,12 @@
 // Your web app's Firebase configuration
   var firebaseConfig = {
-    apiKey: "AIzaSyDhsN2zudiKguLwM_RrHoH8WaHNYF4O1cE",
-    authDomain: "train-scheduler-c3ca7.firebaseapp.com",
-    databaseURL: "https://train-scheduler-c3ca7.firebaseio.com",
-    projectId: "train-scheduler-c3ca7",
+    apiKey: "AIzaSyCbEgCEAQNgfkMHIetOs1SogWYoSQRShj8",
+    authDomain: "train-scheduler-5741a.firebaseapp.com",
+    databaseURL: "https://train-scheduler-5741a.firebaseio.com",
+    projectId: "train-scheduler-5741a",
     storageBucket: "",
-    messagingSenderId: "566144752510",
-    appId: "1:566144752510:web:e8a2eaea68268a98"
+    messagingSenderId: "32421656068",
+    appId: "1:32421656068:web:e5e290f4d2f17578"
   };
 
   // Initialize Firebase
@@ -45,8 +45,3 @@
       console.log(trainFrequency);
   });
 
-  database.ref().on("value", function(snapshot) {
-      
-    console.log(snapshot.val());
-    console.log(snapshot.val().trainName);
-  });
