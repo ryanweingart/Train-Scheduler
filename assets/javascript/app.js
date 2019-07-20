@@ -39,4 +39,14 @@
           time: trainTime,
           frequency: trainFrequency
       });
+      console.log(trainName);
+      console.log(trainDestination);
+      console.log(trainTime);
+      console.log(trainFrequency);
+  });
+
+  database.ref().on("value", function(snapshot) {
+      
+    console.log(snapshot.val());
+    console.log(snapshot.val().trainName);
   });
