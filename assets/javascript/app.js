@@ -13,4 +13,11 @@
 
   var database = firebase.database();
 
-  
+  var trainName = "";
+  var trainDestination = "";
+  var trainTime = "";
+  var trainFrequency = "";
+
+  $("#submit").on("click", function(event) {
+      
+  })
