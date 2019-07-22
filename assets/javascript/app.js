@@ -52,5 +52,13 @@
 
         var timeRemainder = timeDifference % childSnapshot.val().frequency;
         console.log(timeRemainder);
+
+        var timeUntilTrainArrival = childSnapshot.val().frequency - timeRemainder;
+        console.log("Minutes Until Train Arrival: " + timeUntilTrainArrival);
+
+        var nextTrainArrival = moment().add(timeUntilTrainArrival, "minutes");
+        console.log("Arrival Time: " + moment(nextTrainArrival).format("hh:mm"));
+
+        $("#tbody").append
       });
   });
