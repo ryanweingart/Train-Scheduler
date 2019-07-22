@@ -59,6 +59,16 @@
         var nextTrainArrival = moment().add(timeUntilTrainArrival, "minutes");
         console.log("Arrival Time: " + moment(nextTrainArrival).format("hh:mm"));
 
-        $("#tbody").append
+        $("#tbody").append('<tr><td>' + childSnapshot.val().name + 
+        '</td><td>' + childSnapshot.val().destination +
+        '</td><td>' + childSnapshot.val().frequency +
+        '</td><td>' + nextTrainArrival.format("hh:mm a") +
+        '</td><td>' + timeUntilTrainArrival +
+        '</td></tr>');
+        console.log(childSnapshot.val());
       });
+
+      if (snapshot.child("time").exists()) {
+          $("#time").text(snapshot.val().trainTime);
+      }
   });
