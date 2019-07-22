@@ -47,7 +47,7 @@
         var currentTime = moment();
         console.log("Current Time: " + moment(currentTime).format("hh:mm"));
 
-        var timeDifference = moment().diff(moment(childSnapshot.val().newArrival, "hh:mm"), "minutes");
+        var timeDifference = moment().diff(moment(childSnapshot.val().trainTime, "hh:mm"), "minutes");
         console.log("Difference in Time: " + timeDifference);
 
         var timeRemainder = timeDifference % childSnapshot.val().frequency;
@@ -59,10 +59,10 @@
         var nextTrainArrival = moment().add(timeUntilTrainArrival, "minutes");
         console.log("Arrival Time: " + moment(nextTrainArrival).format("hh:mm"));
 
-        $("#tbody").append('<tr><td>' + childSnapshot.val().name + 
+        $("table tbody").append('<tr><td>' + childSnapshot.val().name + 
         '</td><td>' + childSnapshot.val().destination +
         '</td><td>' + childSnapshot.val().frequency +
-        '</td><td>' + nextTrainArrival.format("hh:mm a") +
+        '</td><td>' + nextTrainArrival.format("hh:mm A") +
         '</td><td>' + timeUntilTrainArrival +
         '</td></tr>');
         console.log(childSnapshot.val());
