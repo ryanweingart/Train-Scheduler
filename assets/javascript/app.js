@@ -14,7 +14,7 @@
 
   //Variable to reference Firebase
   var database = firebase.database();
-
+  
   //Initial variables
   var trainName = "";
   var trainDestination = "";
@@ -39,14 +39,18 @@
           time: trainTime,
           frequency: trainFrequency
       });
-      console.log(trainName);
-      console.log(trainDestination);
-      console.log(trainTime);
-      console.log(trainFrequency);
   });
 
   database.ref().on("value", function(snapshot) {
-      
-    console.log(snapshot.val());
-    console.log(snapshot.val().trainName);
+      snapshot.forEach(function(childSnapshot) {
+          
+        var currentTime = moment();
+        console.log("Current Time: " + moment(currentTime).format("hh:mm"));
+
+        var timeDifference = moment().diff(moment(childSnapshot.val().newArrival, "hh:mm"), "minutes");
+        console.log("Difference in Time: " + timeDifference);
+
+        var timeRemainder = timeDifference % childSnapshot.val().frequency;
+        console.log(timeRemainder);
+      });
   });
