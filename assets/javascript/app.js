@@ -31,6 +31,11 @@ var firebaseConfig = {
       //Prevents page from refreshing
       event.preventDefault();
 
+      $("#name").val("");
+      $("#destination").val("");
+      $("#time").val("");
+      $("#frequency").val("");
+
       //Get inputs from form
       var trainName = $("#name").val().trim();
       var trainDestination = $("#destination").val().trim();
@@ -45,10 +50,7 @@ var firebaseConfig = {
           frequency: frequency
       });
 
-      //Clears inputs from form after submit button is clicked
-      for (var i = 0; i < $('form').length; i++) {
-          $('form')[i].reset();
-      };
+ 
     //   clearTableContent();
       
   });
