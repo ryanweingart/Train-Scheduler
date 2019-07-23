@@ -31,11 +31,7 @@ var firebaseConfig = {
       //Prevents page from refreshing
       event.preventDefault();
 
-      $("#name").val("");
-      $("#destination").val("");
-      $("#time").val("");
-      $("#frequency").val("");
-
+  
       //Get inputs from form
       var trainName = $("#name").val().trim();
       var trainDestination = $("#destination").val().trim();
@@ -50,8 +46,12 @@ var firebaseConfig = {
           frequency: frequency
       });
 
- 
-    //   clearTableContent();
+      //Clears the input form after submit button is clicked
+      $("#name").val("");
+      $("#destination").val("");
+      $("#time").val("");
+      $("#frequency").val("");
+
       
   });
 
@@ -63,6 +63,10 @@ var firebaseConfig = {
 
 
   database.ref().on("value", function(snapshot) {
+
+    //Clears table to not repeat times
+    clearTableContent();
+    
     snapshot.forEach(function(childSnapshot) {
         var currentTime = moment();
         console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
