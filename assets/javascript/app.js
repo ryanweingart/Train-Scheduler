@@ -74,7 +74,7 @@ var firebaseConfig = {
         var frequencySS = childSnapshot.val().frequency;
         var timeSS = childSnapshot.val().time;
 
-      var timeDifference = moment().diff(moment(timeSS, "HH:mm"), "minutes");
+      var timeDifference = moment().diff(moment(timeSS, "hh:mm"), "minutes");
       console.log("Difference in Time: " + timeDifference);
 
       var timeRemainder = timeDifference % frequencySS;
