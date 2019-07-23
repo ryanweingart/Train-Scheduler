@@ -1,5 +1,5 @@
 // Your web app's Firebase configuration
-  var firebaseConfig = {
+var firebaseConfig = {
     apiKey: "AIzaSyCbEgCEAQNgfkMHIetOs1SogWYoSQRShj8",
     authDomain: "train-scheduler-5741a.firebaseapp.com",
     databaseURL: "https://train-scheduler-5741a.firebaseio.com",
@@ -49,35 +49,8 @@
       for (var i = 0; i < $('form').length; i++) {
           $('form')[i].reset();
       };
-      clearTableContent();
-      database.ref().on("value", function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-    
-          var timeDifference = moment().diff(moment(childSnapshot.val().time, "HH:mm"), "minutes");
-          console.log("Difference in Time: " + timeDifference);
-    
-          var timeRemainder = timeDifference % childSnapshot.val().frequency;
-          console.log(timeRemainder);
-    
-          var timeUntilTrainArrival = childSnapshot.val().frequency - timeRemainder;
-          console.log("Minutes Until Train Arrival: " + timeUntilTrainArrival);
-    
-          var nextTrainArrival = moment().add(timeUntilTrainArrival, "minutes");
-          console.log("Arrival Time: " + moment(nextTrainArrival).format("HH:mm"));
-    
-          $("tbody").append('<tr><td>' + childSnapshot.val().name + 
-          '</td><td>' + childSnapshot.val().destination +
-          '</td><td>' + childSnapshot.val().frequency +
-          '</td><td>' + nextTrainArrival.format("HH:mm A") +
-          '</td><td>' + timeUntilTrainArrival +
-          '</td></tr>');
-          console.log(childSnapshot.val());
-        });
-    
-        if (snapshot.child("time").exists()) {
-            $("#time").text(snapshot.val().trainTime);
-        }
-    });
+    //   clearTableContent();
+      
   });
 
   //Function to clear the table to avoid repeating schedules
@@ -86,3 +59,34 @@
   };
 
 
+
+  database.ref().on("value", function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+        var currentTime = moment();
+        console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+        
+      var timeDifference = moment().diff(moment(childSnapshot.val().time, "HH:mm"), "minutes");
+      console.log("Difference in Time: " + timeDifference);
+
+      var timeRemainder = timeDifference % childSnapshot.val().frequency;
+      console.log(timeRemainder);
+
+      var timeUntilTrainArrival = childSnapshot.val().frequency - timeRemainder;
+      console.log("Minutes Until Train Arrival: " + timeUntilTrainArrival);
+
+      var nextTrainArrival = moment().add(timeUntilTrainArrival, "minutes");
+      console.log("Arrival Time: " + moment(nextTrainArrival).format("HH:mm"));
+
+      $("tbody").append('<tr><td>' + childSnapshot.val().name + 
+      '</td><td>' + childSnapshot.val().destination +
+      '</td><td>' + childSnapshot.val().frequency +
+      '</td><td>' + nextTrainArrival.format("HH:mm A") +
+      '</td><td>' + timeUntilTrainArrival +
+      '</td></tr>');
+      console.log(childSnapshot.val());
+    });
+
+    if (snapshot.child("time").exists()) {
+        $("#time").text(snapshot.val().trainTime);
+    }
+});
