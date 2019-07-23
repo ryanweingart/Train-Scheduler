@@ -15,6 +15,10 @@
   //Variable to reference Firebase
   var database = firebase.database();
   
+  //Displays the current time
+  setInterval (function() {
+      $(".currentTime").html(moment().format('HH:mm:ss A'))
+  }, 1000);
   //Initial variables
   var trainName = "";
   var trainDestination = "";
@@ -49,10 +53,7 @@
       database.ref().on("value", function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
     
-          var currentTime = moment();
-          console.log("Current Time: " + moment(currentTime).format("hh:mm"));
-    
-          var timeDifference = moment().diff(moment(childSnapshot.val().time, "hh:mm"), "minutes");
+          var timeDifference = moment().diff(moment(childSnapshot.val().time, "HH:mm"), "minutes");
           console.log("Difference in Time: " + timeDifference);
     
           var timeRemainder = timeDifference % childSnapshot.val().frequency;
@@ -62,12 +63,12 @@
           console.log("Minutes Until Train Arrival: " + timeUntilTrainArrival);
     
           var nextTrainArrival = moment().add(timeUntilTrainArrival, "minutes");
-          console.log("Arrival Time: " + moment(nextTrainArrival).format("hh:mm"));
+          console.log("Arrival Time: " + moment(nextTrainArrival).format("HH:mm"));
     
           $("tbody").append('<tr><td>' + childSnapshot.val().name + 
           '</td><td>' + childSnapshot.val().destination +
           '</td><td>' + childSnapshot.val().frequency +
-          '</td><td>' + nextTrainArrival.format("hh:mm A") +
+          '</td><td>' + nextTrainArrival.format("HH:mm A") +
           '</td><td>' + timeUntilTrainArrival +
           '</td></tr>');
           console.log(childSnapshot.val());
@@ -79,6 +80,7 @@
     });
   });
 
+  //Function to clear the table to avoid repeating schedules
   function clearTableContent () {
       $('tbody').empty();
   };
