@@ -19,6 +19,7 @@ var firebaseConfig = {
   setInterval (function() {
       $(".currentTime").html(moment().format('HH:mm:ss A'))
   }, 1000);
+
   //Initial variables
   var trainName = "";
   var trainDestination = "";
@@ -66,10 +67,10 @@ var firebaseConfig = {
 
     //Clears table to not repeat times
     clearTableContent();
-    
+
     snapshot.forEach(function(childSnapshot) {
         var currentTime = moment();
-        console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+        console.log("CURRENT TIME: " + moment(currentTime).format("HH:mm"));
         
       var timeDifference = moment().diff(moment(childSnapshot.val().time, "HH:mm"), "minutes");
       console.log("Difference in Time: " + timeDifference);
@@ -92,7 +93,8 @@ var firebaseConfig = {
       console.log(childSnapshot.val());
     });
 
-    if (snapshot.child("time").exists()) {
-        $("#time").text(snapshot.val().trainTime);
-    }
+
+    // if (snapshot.child("time").exists()) {
+    //     $("#time").text(snapshot.val().trainTime);
+    // }
 });
