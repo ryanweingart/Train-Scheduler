@@ -69,25 +69,28 @@ var firebaseConfig = {
     clearTableContent();
 
     snapshot.forEach(function(childSnapshot) {
-        var currentTime = moment();
-        console.log("CURRENT TIME: " + moment(currentTime).format("HH:mm"));
-        
-      var timeDifference = moment().diff(moment(childSnapshot.val().time, "HH:mm"), "minutes");
+        var nameSS = childSnapshot.val().name;
+        var destinationSS = childSnapshot.val().destination;
+        var frequencySS = childSnapshot.val().frequency;
+        var timeSS = childSnapshot.val().time;
+
+      var timeDifference = moment().diff(moment(timeSS, "HH:mm"), "minutes");
       console.log("Difference in Time: " + timeDifference);
 
-      var timeRemainder = timeDifference % childSnapshot.val().frequency;
+      var timeRemainder = timeDifference % frequencySS;
       console.log(timeRemainder);
 
-      var timeUntilTrainArrival = childSnapshot.val().frequency - timeRemainder;
+      var timeUntilTrainArrival = frequencySS - timeRemainder;
       console.log("Minutes Until Train Arrival: " + timeUntilTrainArrival);
 
       var nextTrainArrival = moment().add(timeUntilTrainArrival, "minutes");
       console.log("Arrival Time: " + moment(nextTrainArrival).format("HH:mm"));
+      
 
-      $("tbody").append('<tr><td>' + childSnapshot.val().name + 
-      '</td><td>' + childSnapshot.val().destination +
-      '</td><td>' + childSnapshot.val().frequency +
-      '</td><td>' + nextTrainArrival.format("HH:mm A") +
+      $("tbody").append('<tr><td>' + nameSS + 
+      '</td><td>' + destinationSS +
+      '</td><td>' + frequencySS +
+      '</td><td>' + nextTrainArrival.format("hh:mm A") +
       '</td><td>' + timeUntilTrainArrival +
       '</td></tr>');
       console.log(childSnapshot.val());
