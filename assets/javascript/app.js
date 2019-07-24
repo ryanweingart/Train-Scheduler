@@ -74,7 +74,9 @@ var firebaseConfig = {
         var frequencySS = childSnapshot.val().frequency;
         var timeSS = childSnapshot.val().time;
 
-      var timeDifference = moment().diff(moment(timeSS, "hh:mm"), "minutes");
+        var trainReset = moment(timeSS, "hh:mm").subtract(1, "y");
+
+      var timeDifference = moment().diff(moment(trainReset, "hh:mm"), "minutes");
       console.log("Difference in Time: " + timeDifference);
 
       var timeRemainder = timeDifference % frequencySS;
@@ -85,7 +87,14 @@ var firebaseConfig = {
 
       var nextTrainArrival = moment().add(timeUntilTrainArrival, "minutes");
       console.log("Arrival Time: " + moment(nextTrainArrival).format("HH:mm"));
-      
+
+    //   if (moment().isSameorBefore(timeSS)) {
+    //       timeUntilTrainArrival = moment(timeSS).diff(moment(), "m");
+    //       nextTrainArrival = moment(timeSS, "hh:mm").format("hh:mm");
+    //   } else {
+    //       timeSS = moment(timeSS).add(frequencySS, "m");
+
+    //   }
 
       $("tbody").append('<tr><td>' + nameSS + 
       '</td><td>' + destinationSS +
