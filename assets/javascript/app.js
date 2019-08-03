@@ -17,7 +17,7 @@ var firebaseConfig = {
   
   //Displays the current time
   setInterval (function() {
-      $(".currentTime").html(moment().format('HH:mm:ss A'))
+      $(".currentTime").html(moment().format('hh:mm:ss A'))
   }, 1000);
 
   //Submit changes what is stored in Firebase
@@ -29,7 +29,7 @@ var firebaseConfig = {
       //Get inputs from form
       var trainName = $("#name").val().trim();
       var trainDestination = $("#destination").val().trim();
-      var trainTime = moment($("#time").val().trim(), "HH:mm").subtract(10, "y").format("X");
+      var trainTime = moment($("#time").val().trim(), "hh:mm").subtract(1, "y").format("X");
       var frequency = $("#frequency").val().trim();
 
       //Change what is saved in Firebase
@@ -49,17 +49,7 @@ var firebaseConfig = {
       
   });
 
-  //Function to clear the table to avoid repeating schedules
-  function clearTableContent () {
-      $('tbody').empty();
-  };
-
-
-
   database.ref().on("child_added", function(snapshot) {
-
-    //Clears table to not repeat times
-    // clearTableContent();
 
         var nameSS = snapshot.val().name;
         var destinationSS = snapshot.val().destination;
